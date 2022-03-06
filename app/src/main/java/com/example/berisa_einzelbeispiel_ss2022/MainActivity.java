@@ -116,6 +116,20 @@ public class MainActivity extends AppCompatActivity {
             });
         });
 
+        /*
+        Reading the problem sheet again, I have found this link :
+        https://medium.com/hootsuite-engineering/asynchronous-android-programming-the-good-the-bad-and-the-ugly-c48a0b73665f
+
+        After reading the article I would say that my 2nd Solution is better since the static handler is
+        holding a weak reference to the activity, so I can call it's methods to update update the UI
+        without creating memory leak. My solution is considered "bad" when making multiple network calls.
+        In my case there is only one. So I would say its an "okay" solution, without using any external
+        libraries.
+
+        For multiple network calls we should rather use RxJava ! (I guess)
+        Using RxJava for this case here, in my opinion it would be an overkill.
+        As the job is done with my solution 2.
+         */
     }
 
     /*
