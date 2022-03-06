@@ -118,12 +118,22 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /*
+    In my opinion background worker is here not needed, since its a very short calculation.
+    If it were more complex, then we need to handle this with a thread as seen above.
+     */
     public void onClick_btn_CalcSubFeature4(View view) {
-
+        String s_matrikelNr = et_MatrikelNr.getText().toString();
+        if(s_matrikelNr.length() == 0){
+            txtView_Response.setText("Enter MatrikelNr");
+            return;
+        }
+        int matrikelNr = Integer.valueOf(s_matrikelNr);
+        txtView_Response.setText("Digit Sum to Binary of MatrikelNr : " + digitSumToBinary(matrikelNr));
     }
 
 
-    // Logic
+    // Logic, could be moved to an extra (static) class but I think not needed for this case
     private String getTCPServerMsg(String martikelNr) {
         try {
             Socket clientSocket = new Socket("se2-isys.aau.at", 53212);
@@ -138,6 +148,20 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /*
+     My martikelnumber = 11943292 % 7 = 4. So I implemented task 4:
+     Form a cross sum of the matriculation number and then display it as a binary number
+     */
+
+    private String digitSumToBinary(int number) {
+        int sum = 0;
+        do {
+            sum += number % 10;
+            number /= 10;
+        } while (number > 0);
+        return (String) Integer.toBinaryString(sum);
     }
 
 
